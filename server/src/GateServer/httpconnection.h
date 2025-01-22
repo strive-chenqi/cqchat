@@ -16,10 +16,10 @@ public:
 private:
     void handleRequest();     //处理请求
 
+    void preParseGetParam();  //解析get参数 
     void writeResponse();     //写响应
     void checkDeadline();     //检查超时,像js这些封装比较好的语言有这个机制，c++需要自己写
-
-    //void preParseGetParam(); //解析get参数    
+       
 
 private:
     tcp::socket  socket_;
@@ -38,7 +38,7 @@ private:
     net::steady_timer deadline_{socket_.get_executor(), std::chrono::seconds(60) };
 
     std::string get_url_;
-    std::unordered_map<std::string, std::string> get_params_;
+    std::unordered_map<std::string, std::string> get_params_;  //get请求参数 键值对
 };
 
 #endif

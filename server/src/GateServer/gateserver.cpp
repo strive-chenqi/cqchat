@@ -1,18 +1,15 @@
 #include "connectionserver.h"
-// #include "ConfigMgr.h"
 
 int main()
 {
     // auto& gCfgMgr = ConfigMgr::Inst();
+    ConfigMgr gCfgMgr = ConfigMgr();
     
-    // std::string gate_port_str = gCfgMgr["CServer"]["Port"];
-    // unsigned short gate_port = atoi(gate_port_str.c_str());
+    std::string gate_port_str = gCfgMgr["CServer"]["Port"];
+    unsigned short gate_port = atoi(gate_port_str.c_str());
 
     try
     {
-        unsigned short port = static_cast<unsigned short>(8080);
-
-
         //这个ioc跑在主线程里面，目前每个连接的连接、读写等都是通过这个ioc来调度的
         //并发能力不是很强
         /*
@@ -24,7 +21,7 @@ int main()
         
         boost::asio::signal_set signals(ioc, SIGINT, SIGTERM); //信号集
         //信号集处理
-        signals.async_wait([&ioc](const boost::system::error_code& error, int signal_number) {
+        signals.async_wait([&ioc](const boost::system::error_code& error, [[maybe_unused]] int signal_number) {
 
             if (error) {
                 return;
@@ -33,8 +30,8 @@ int main()
         });
 
 
-        std::make_shared<CServer>(ioc, port)->start();
-        std::cout << "Gate Server listen on port" << port << std::endl;
+        std::make_shared<CServer>(ioc, gate_port)->start();
+        std::cout << "Gate Server listen on port" << gate_port << std::endl;
         ioc.run();
     }
     catch (std::exception const& e)

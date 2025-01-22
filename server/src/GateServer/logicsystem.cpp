@@ -1,6 +1,6 @@
 #include "logicsystem.h"
 #include "httpconnection.h"
-// #include "verifygrpcclient.h"
+#include "verifygrpcclient.h"
 // #include "redismgr.h"
 // #include "mysqlmgr.h"
 
@@ -23,53 +23,52 @@ LogicSystem::LogicSystem() {
         }
     });
 
-    // regPost("/get_varifycode", [](std::shared_ptr<HttpConnection> connection) {
-    //     //HTTP 请求体的数据转换为字符串
-    //     auto body_str = boost::beast::buffers_to_string(connection->request_.body().data());
-        
-    //     //业务逻辑处理
-    //     std::cout << "receive body is " << body_str << std::endl;
+    regPost("/get_varifycode", [](std::shared_ptr<HttpConnection> connection) {
+        //HTTP 请求体的数据转换为字符串
+        auto body_str = boost::beast::buffers_to_string(connection->request_.body().data());
+        std::cout << "receive body is " << body_str << std::endl;
         
 
-    //     connection->response_.set(http::field::content_type, "text/json");
+        connection->response_.set(http::field::content_type, "text/json");
 
-    //     Json::Value root; //json对象 用于存储响应的 JSON 数据
-    //     Json::Reader reader; //JSON 解析器对象
-    //     Json::Value src_root; //解析后的json数据
-    //     bool parse_success = reader.parse(body_str, src_root);
-    //     if (!parse_success) {
-    //         std::cout << "Failed to parse JSON data!" << std::endl;
-    //         root["error"] = ErrorCodes::Error_Json;
-    //         std::string jsonstr = root.toStyledString(); //将 root 对象转换为一个人类可读的 JSON 字符串
-    //         beast::ostream(connection->response_.body()) << jsonstr;
-    //         return true;
-    //     }
+        Json::Value root;     //响应
+        Json::Reader reader;  //JSON 解析器对象
+        Json::Value src_root; //解析后的请求
+        bool parse_success = reader.parse(body_str, src_root);
+        if (!parse_success) {
+            std::cout << "Failed to parse JSON data!" << std::endl;
+            root["error"] = ErrorCodes::Error_Json;
+            std::string jsonstr = root.toStyledString(); 
+            beast::ostream(connection->response_.body()) << jsonstr;
+            return true;
+        }
 
 
-    //     if (!src_root.isMember("email")) {
-    //         // std::cout << "email field is missing!" << std::endl;
-    //         // root["error"] = ErrorCodes::Error_EmailMissing;
-    //         // std::string jsonstr = root.toStyledString();
-    //         // beast::ostream(connection->_response.body()) << jsonstr;
-    //         // return true;
-    //         std::cout << "Failed to parse JSON data!" << std::endl;
-    //         root["error"] = ErrorCodes::Error_Json;
-    //         std::string jsonstr = root.toStyledString(); //将 root 对象转换为一个人类可读的 JSON 字符串
-    //         beast::ostream(connection->response_.body()) << jsonstr;
-    //         return true;
-    //     }
-    //     auto email = src_root["email"].asString(); //获取 email 字段的值
+        if (!src_root.isMember("email")) {
+            std::cout << "email field is missing!" << std::endl;
+            root["error"] = ErrorCodes::Error_Json;
+            std::string jsonstr = root.toStyledString();
+            beast::ostream(connection->response_.body()) << jsonstr;
+            return true;
+            // std::cout << "Failed to parse JSON data!" << std::endl;
+            // root["error"] = ErrorCodes::Error_Json;
+            // std::string jsonstr = root.toStyledString(); //将 root 对象转换为一个人类可读的 JSON 字符串
+            // beast::ostream(connection->response_.body()) << jsonstr;
+            // return true;
+        }
+        auto email = src_root["email"].asString(); //将JSON中的email字段转换为std::string类型，asString() 方法已经在内部处理了 JSON 值到 std::string 的转换（反序列化）
 
-    //     //调用grpc服务
-    //     auto rsp = VerifyGrpcClient::GetInstance()->GetVarifyCode(email);
+        //调用grpc验证服务
+        auto rsp = VerifyGrpcClient::GetInstance()->getVarifyCode(email);
 
-    //     std::cout << "email is " << email << std::endl;
-    //     root["error"] = rsp.error();
-    //     root["email"] = src_root["email"];
-    //     std::string jsonstr = root.toStyledString();
-    //     beast::ostream(connection->response_.body()) << jsonstr;
-    //     return true;
-    // });
+        std::cout << "email is " << email << std::endl;
+        root["error"] = rsp.error();
+        root["email"] = src_root["email"];
+        root["code"] = rsp.code();
+        std::string jsonstr = root.toStyledString();
+        beast::ostream(connection->response_.body()) << jsonstr;
+        return true;
+    });
 
     // regPost("/register", [](std::shared_ptr<HttpConnection> connection) {
     //     auto body_str = boost::beast::buffers_to_string(connection->_request.body().data());

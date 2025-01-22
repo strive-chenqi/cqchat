@@ -25,7 +25,7 @@
 #include <jsoncpp/json/reader.h> //字符串解析成json
 
 #include "singleton.h"
-// #include "ConfigMgr.h"
+#include "configmgr.h"
 #define BOOST_ASIO_DISABLE_STD_CHRONO //强制使用boost.chrono
  
 
@@ -67,7 +67,7 @@ private:
 
 #define CODEPREFIX "code_"
 
-// class ConfigMgr;
-// extern ConfigMgr gCfgMgr;
+class ConfigMgr;
+extern ConfigMgr gCfgMgr;
 
 #endif // GLODEF_H

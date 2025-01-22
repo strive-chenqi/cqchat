@@ -11,6 +11,8 @@ config.json
 debug/
 .vscode/
 build/
+bin/
+logs/
 /client/cqchat/.qmake.stash
 /client/cqchat/bin/cqchat.exe
 /client/cqchat/bin/cqchat.ilk
