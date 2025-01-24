@@ -16,7 +16,7 @@ find_package(Boost REQUIRED COMPONENTS system filesystem)
 # )
 
 # 添加子目录
-add_subdirectory(VarifyServer)
+# add_subdirectory(VarifyServer)
 add_subdirectory(GateServer)
 
 

@@ -4,8 +4,6 @@ x64
 .vs
 cqchat.pro.user
 node_modules
-config.ini
-config.json
 .DS_Store
 *.out
 debug/
@@ -36,3 +34,4 @@ logs/
 /client/cqchat/ui_registerdialog.h
 /client/cqchat/ui_resetdialog.h
 ui_*.h
+

@@ -36,7 +36,8 @@ target_link_libraries(${PROJECT_NAME}
   boost_system
   boost_filesystem
 
-  varify_proto   # 链接proto库，它会自动包含必要的头文件
+  #varify_proto   # 链接proto库，它会自动包含必要的头文件
+  
   # OpenSSL::SSL
   # OpenSSL::Crypto
 #   hiredis
