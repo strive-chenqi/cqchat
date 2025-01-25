@@ -12,9 +12,20 @@ set(INCLUDE_DIRS
     ${Protobuf_INCLUDE_DIRS}
     ${gRPC_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
+    ${HIREDIS_INCLUDE_DIR}
     #${OpenSSL_INCLUDE_DIRS}
 
 )
+
+
+if(HIREDIS_LIBRARY AND HIREDIS_INCLUDE_DIR)
+    #message(STATUS "Found hiredis: ${HIREDIS_LIBRARY}, ${HIREDIS_INCLUDE_DIR}")
+    target_include_directories(${PROJECT_NAME} PRIVATE ${HIREDIS_INCLUDE_DIR})
+    target_link_libraries(${PROJECT_NAME} ${HIREDIS_LIBRARY})
+else()
+    message(FATAL_ERROR "hiredis not found!")
+endif()
+
 
 # 设置库文件目录 
 # set(LIB_DIRS
@@ -35,12 +46,12 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
   boost_system
   boost_filesystem
+  hiredis
 
   #varify_proto   # 链接proto库，它会自动包含必要的头文件
   
   # OpenSSL::SSL
   # OpenSSL::Crypto
-#   hiredis
 #   mysqlcppconn
 )
 

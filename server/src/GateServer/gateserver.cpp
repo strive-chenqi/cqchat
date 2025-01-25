@@ -1,9 +1,10 @@
 #include "connectionserver.h"
+#include "redismgr.h"
 
 int main()
 {
-    // auto& gCfgMgr = ConfigMgr::Inst();
-    ConfigMgr gCfgMgr = ConfigMgr();
+    auto& gCfgMgr = ConfigMgr::Inst();
+    // ConfigMgr gCfgMgr = ConfigMgr();
     
     std::string gate_port_str = gCfgMgr["CServer"]["Port"];
     unsigned short gate_port = atoi(gate_port_str.c_str());
@@ -13,8 +14,8 @@ int main()
         //这个ioc跑在主线程里面，目前每个连接的连接、读写等都是通过这个ioc来调度的
         //并发能力不是很强
         /*
-        1、用线程池（io_context_poll)，每个连接一个线程，这样每个连接都有一个独立的io_context，但是线程数目有限，不适合大量连接
-        2、一个io_context跑在多个线程里面，这样可以利用多核，但是io_context不是线程安全的，需要加锁
+        1、用线程池（io_context_poll)，每个连接有一个独立的io_context，但是线程数目有限，不适合大量连接
+        2、第二种方式是一个io_context跑在多个线程里面，这样可以利用多核，但是io_context不是线程安全的，需要加锁
         */
         net::io_context ioc{ 1 }; 
 

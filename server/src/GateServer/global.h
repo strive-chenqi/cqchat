@@ -9,7 +9,7 @@
 #include <boost/property_tree/ptree.hpp> //boost读取ini文件
 #include <boost/property_tree/ini_parser.hpp> //boost读取ini文件
 
-//#include <hiredis/hiredis.h>
+#include <hiredis/hiredis.h>
 
 #include <memory>
 #include <atomic>
@@ -67,7 +67,7 @@ private:
 
 #define CODEPREFIX "code_"
 
-class ConfigMgr;
-extern ConfigMgr gCfgMgr;
+// class ConfigMgr;
+// extern ConfigMgr gCfgMgr;
 
 #endif // GLODEF_H

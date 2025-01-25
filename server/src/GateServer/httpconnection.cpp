@@ -2,7 +2,7 @@
 #include "logicsystem.h"
 
 //这里必须要移动构造初始化socket_，因为socket_不存在默认构造函数
-HttpConnection::HttpConnection(tcp::socket socket):socket_(std::move(socket))
+HttpConnection::HttpConnection(boost::asio::io_context& ioc):socket_(ioc)
 {
 
 }

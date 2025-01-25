@@ -37,8 +37,6 @@ struct SectionInfo {
 class ConfigMgr
 {
 public:
-  
-    ConfigMgr();
 
     ~ConfigMgr() {
         config_map_.clear();
@@ -50,11 +48,11 @@ public:
         return config_map_[section];
     }
 
-    //使用单例也可以，没用就直接用个全局的也行
-    // static ConfigMgr& Inst() {
-    //     static ConfigMgr cfg_mgr;
-    //     return cfg_mgr;
-    // }
+    //使用单例也可以，没用就直接用个全局的也行(其他地方都要用的话就用单例)
+    static ConfigMgr& Inst() {
+        static ConfigMgr cfg_mgr;
+        return cfg_mgr;
+    }
 
     ConfigMgr& operator=(const ConfigMgr& src) {
         if (&src == this) {
@@ -70,6 +68,8 @@ public:
     }
     
 private:
+    ConfigMgr();
+
     boost::filesystem::path getConfigPath();
 
 private:
