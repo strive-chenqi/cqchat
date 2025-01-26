@@ -37,7 +37,16 @@ add_subdirectory(src)
 include(GNUInstallDirs)
 
 if(UNIX)
-    # 安装bin目录
+    # 安装源码
+    install(
+        DIRECTORY ${CMAKE_SOURCE_DIR}/src
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/src/cqchat_server
+        FILES_MATCHING PATTERN "*"
+        PATTERN "CMakeLists.txt" EXCLUDE
+        PATTERN "node_modules" EXCLUDE
+    )
+
+    # 安装bin目录 usr/local/bin
     install(
         # 将源目录bin/下的文件安装到指定目标bin目录
         DIRECTORY ${CMAKE_SOURCE_DIR}/bin/
@@ -51,36 +60,74 @@ if(UNIX)
 
     # 安装配置目录
     # 将源目录conf/下的.ini文件安装到指定目标conf目录
-    # install(
-    #     DIRECTORY ${CMAKE_SOURCE_DIR}/conf/
-    #     DESTINATION ${CMAKE_INSTALL_PREFIX}/conf
-    #     FILES_MATCHING PATTERN "*"
-    # )
     install(
-        FILES ${CMAKE_SOURCE_DIR}/conf/config.ini
-        DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}cqchat_server   #usr/local/etc 路径默认是相对于 CMAKE_INSTALL_PREFIX 的，不需要显式添加
-        RENAME config.ini.example
+        DIRECTORY ${CMAKE_SOURCE_DIR}/conf/
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/etc/cqchat_server
+        FILES_MATCHING PATTERN "*"
     )
+    # usr/local/etc
+    # install(
+    #     FILES ${CMAKE_SOURCE_DIR}/etc/gate_server_config.ini
+    #     DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/cqchat_server   #usr/local/etc 路径默认是相对于 CMAKE_INSTALL_PREFIX 的，不需要显式添加
+    #     RENAME gate_server_config.ini.example
+    # )
 
     # 创建日志目录
     # 在指定目标路径下创建logs目录
+    # usr/local/var/log/cqchat_server/gate_server
     install(
         DIRECTORY
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/logs/cqchat_server
+        DESTINATION ${CMAKE_INSTALL_LOCALSTATEDIR}/logs/cqchat_server
     )
 
-    # 安装启动脚本
+    # 安装启动脚本 usr/local/bin
     install(
-        PROGRAMS ${CMAKE_SOURCE_DIR}/scripts/start.sh
+        PROGRAMS 
+            ${CMAKE_SOURCE_DIR}/scripts/gate_server_start.sh
+            ${CMAKE_SOURCE_DIR}/scripts/verify_server_start.sh
         DESTINATION ${CMAKE_INSTALL_BINDIR} # 默认是 /usr/local/bin 相对于 CMAKE_INSTALL_PREFIX。
-        RENAME cqchat_server-start
     )
 
-    # 安装 systemd service 文件
+    # 安装 systemd service 文件 /usr/local/lib/systemd/system
     install(
-        FILES ${CMAKE_SOURCE_DIR}/scripts/cqchat_server.service
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/system
-        RENAME cqchat_server.service
+        FILES 
+            ${CMAKE_SOURCE_DIR}/scripts/gate_server.service
+            ${CMAKE_SOURCE_DIR}/scripts/verify_server.service
+        DESTINATION /usr/lib/systemd/system/   #systemd 只会在特定的目录下查找服务文件
     )
+
+    # 安装后运行的脚本:配置服务
+    install(CODE "
+        # 设置权限
+        execute_process(
+            COMMAND chmod 755 ${CMAKE_INSTALL_PREFIX}/bin/gate_server
+        )
+
+        # 创建服务用户（如果不存在）
+        execute_process(
+            COMMAND getent passwd cqchat_server
+            RESULT_VARIABLE USER_EXISTS
+        )
+        if(NOT \${USER_EXISTS} EQUAL 0)
+            execute_process(
+                COMMAND useradd -r -s /bin/false cqchat_server
+            )
+        endif()
+
+        # 设置目录权限
+        execute_process(
+            COMMAND mkdir -p ${CMAKE_INSTALL_LOCALSTATEDIR}/logs/cqchat_server/gate_server
+            COMMAND mkdir -p ${CMAKE_INSTALL_LOCALSTATEDIR}/logs/cqchat_server/verify_server
+            COMMAND chown -R chenqi:chenqi ${CMAKE_INSTALL_LOCALSTATEDIR}/logs/cqchat_server
+        )
+
+        # 重新加载 systemd
+        execute_process(
+            COMMAND systemctl daemon-reload
+        )
+
+        message(STATUS \"Installation completed. To start the service, run:
+        sudo systemctl start cqchat_server\")
+    ")
 
 endif()

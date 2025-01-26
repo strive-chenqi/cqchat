@@ -30,7 +30,7 @@ message(STATUS "Checking HIREDIS_INCLUDE: ${HIREDIS_INCLUDE_DIR}")
 
 # 添加子目录
 # add_subdirectory(VarifyServer)
-add_subdirectory(GateServer)
+add_subdirectory(gate_server)
 
 
 

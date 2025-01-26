@@ -53,7 +53,7 @@ ConfigMgr::ConfigMgr(){
 boost::filesystem::path ConfigMgr::getConfigPath() {
     // 1. 首先检查命令行参数或环境变量中指定的配置文件路径
     // 从环境变量中获取配置文件路径
-    const char* config_path = std::getenv("CQCHAT_SERVER_CONFIG_PATH");
+    const char* config_path = std::getenv("CQCHAT_GATE_SERVER_CONFIG");
     // 如果环境变量中存在配置路径则直接返回
     if (config_path) {
         return boost::filesystem::path(config_path);
@@ -63,7 +63,7 @@ boost::filesystem::path ConfigMgr::getConfigPath() {
     // 获取当前可执行文件的路径
     boost::filesystem::path exe_path = boost::filesystem::canonical("/proc/self/exe").parent_path();
     // 构造相对于可执行文件的配置文件路径
-    boost::filesystem::path relative_config = exe_path / "../etc/cqchat_server/config.ini";
+    boost::filesystem::path relative_config = exe_path / "../etc/gate_server_config.ini";
     // 如果相对路径存在则返回
     if (boost::filesystem::exists(relative_config)) {
         return relative_config;
@@ -71,7 +71,7 @@ boost::filesystem::path ConfigMgr::getConfigPath() {
 
     // 3. 检查系统配置目录
     // 构造系统配置文件的路径
-    boost::filesystem::path system_config = "/etc/cqchat_server/config.ini";
+    boost::filesystem::path system_config = "/usr/local/etc/cqchat_server/gate_server_config.ini";
     // 如果系统配置文件存在则返回
     if (boost::filesystem::exists(system_config)) {
         return system_config;
@@ -80,12 +80,12 @@ boost::filesystem::path ConfigMgr::getConfigPath() {
     // 4. 最后使用开发环境的路径
     // 获取当前源文件的路径
     boost::filesystem::path source_path(__FILE__);
-    boost::filesystem::path dev_config = source_path.parent_path().parent_path().parent_path() / "etc" /  "config.ini";
+    boost::filesystem::path dev_config = source_path.parent_path().parent_path().parent_path() / "etc" /  "gate_server_config.ini";
     // 返回开发环境下的配置文件路径
     if (boost::filesystem::exists(dev_config)) {
         return dev_config;
     }
 
     // 如果以上路径都不存在，则抛出异常
-    throw std::runtime_error("Failed to find config.ini");
+    throw std::runtime_error("Failed to find gate_server_config.ini");
 }

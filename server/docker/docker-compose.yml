@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  gate_server:
+    build:
+      context: ..
+      dockerfile: gate_server/Dockerfile
+    container_name: cqchat_gate
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=123456
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=chenqi
+      - MYSQL_PASSWORD=123456
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../etc/config.ini:/etc/cqchat_server/config.ini
+      - ../logs:/app/logs
+    depends_on:
+      - mysql
+      - redis
+      - verify_server
+
+  verify_server:
+    build:
+      context: ..
+      dockerfile: verify_server/Dockerfile
+    container_name: cqchat_verify
+    ports:
+      - "50051:50051"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    container_name: cqchat_redis
+    command: redis-server --requirepass 123456 --bind 0.0.0.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "123456", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  mysql:
+    image: mysql:8.0
+    container_name: cqchat_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: llfc
+      MYSQL_USER: chenqi
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "chenqi", "-p123456"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  redis_data:
+  mysql_data:

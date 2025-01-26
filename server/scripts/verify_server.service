@@ -1,0 +1,21 @@
+[Unit]
+Description=CQChat Verify Server Service
+After=network.target
+Before=gate_server.service
+
+[Service]
+Type=simple
+User=chenqi
+Group=chenqi
+WorkingDirectory=/usr/local/verify_server
+# 启动命令：使用我们的启动脚本
+ExecStart=/usr/local/bin/verify_server_start.sh
+Restart=always
+
+Environment=NODE_ENV=production
+Environment=PORT=50051
+Environment=CQCHAT_VERIFY_SERVER_CONFIG=/usr/local/etc/cqchat_server/verify_server_config.ini
+Environment=CQCHAT_VERIFY_SERVER_LOG_DIR=/usr/local/var/logs/cqchat_server/verify_server
+
+[Install]
+WantedBy=multi-user.target

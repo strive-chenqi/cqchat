@@ -1,4 +1,4 @@
-project(cqchat_server)
+project(gate_server)
 
 aux_source_directory(. SRCS)
 
