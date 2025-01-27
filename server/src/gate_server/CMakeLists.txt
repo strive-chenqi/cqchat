@@ -27,6 +27,14 @@ else()
 endif()
 
 
+if(MYSQLCPPCONN_LIBRARY AND MYSQLCPPCONN_INCLUDE_DIR)
+    message(STATUS "Found mysqlcppconn: ${MYSQLCPPCONN_LIBRARY}, ${MYSQLCPPCONN_INCLUDE_DIR}")
+    target_include_directories(${PROJECT_NAME} PRIVATE ${MYSQLCPPCONN_INCLUDE_DIR})
+    target_link_libraries(${PROJECT_NAME} ${MYSQLCPPCONN_LIBRARY})
+else()
+    message(FATAL_ERROR "mysqlcppconn library not found")
+endif()
+
 # 设置库文件目录 
 # set(LIB_DIRS
 #     ${Protobuf_LIBRARY_DIRS}
@@ -47,12 +55,12 @@ target_link_libraries(${PROJECT_NAME}
   boost_system
   boost_filesystem
   hiredis
+  mysqlcppconn
 
   #varify_proto   # 链接proto库，它会自动包含必要的头文件
   
   # OpenSSL::SSL
   # OpenSSL::Crypto
-#   mysqlcppconn
 )
 
 
