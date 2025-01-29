@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>300</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,13 +15,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_9">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QStackedWidget" name="stackedWidget_2">
+      <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="page_3">
+       <widget class="QWidget" name="page_1">
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
           <spacer name="verticalSpacer_7">
@@ -40,7 +40,7 @@
           <widget class="QWidget" name="widget_3" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
-             <widget class="QLabel" name="err_tip_2">
+             <widget class="QLabel" name="err_tip">
               <property name="text">
                <string>错误提示</string>
               </property>
@@ -55,7 +55,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QLabel" name="user_label_2">
+            <widget class="QLabel" name="user_label">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -74,7 +74,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="user_edit_2">
+            <widget class="QLineEdit" name="user_edit">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -94,7 +94,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9">
            <item>
-            <widget class="QLabel" name="email_label_2">
+            <widget class="QLabel" name="email_label">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -113,7 +113,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="email_edit_2">
+            <widget class="QLineEdit" name="email_edit">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -131,9 +131,9 @@
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <layout class="QHBoxLayout" name="horizontalLayout_1">
            <item>
-            <widget class="QLabel" name="pass_label_2">
+            <widget class="QLabel" name="pass_label">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -152,7 +152,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="pass_edit_2">
+            <widget class="QLineEdit" name="pass_edit">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -165,10 +165,13 @@
                <height>25</height>
               </size>
              </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="pass_visible_2">
+            <widget class="ClickedLabel" name="pass_visible">
              <property name="minimumSize">
               <size>
                <width>20</width>
@@ -194,7 +197,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_11">
            <item>
-            <widget class="QLabel" name="confirm_label_2">
+            <widget class="QLabel" name="confirm_label">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -213,7 +216,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="confirm_edit_2">
+            <widget class="QLineEdit" name="confirm_edit">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -226,10 +229,13 @@
                <height>25</height>
               </size>
              </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="confirm_visible_2">
+            <widget class="ClickedLabel" name="confirm_visible">
              <property name="minimumSize">
               <size>
                <width>20</width>
@@ -255,7 +261,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
-            <widget class="QLabel" name="varify_label_2">
+            <widget class="QLabel" name="varify_label">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -274,7 +280,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="varify_edit_2">
+            <widget class="QLineEdit" name="varify_edit">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -290,7 +296,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="get_code_2">
+            <widget class="TimerBtn" name="get_code">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -326,7 +332,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
-            <widget class="QPushButton" name="sure_btn_2">
+            <widget class="QPushButton" name="sure_btn">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -345,7 +351,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="cancel_btn_2">
+            <widget class="QPushButton" name="cancel_btn">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -380,7 +386,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="page_4">
+       <widget class="QWidget" name="page_2">
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
           <spacer name="verticalSpacer_10">
@@ -396,7 +402,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="tip_lb_2">
+          <widget class="QLabel" name="tip_lb">
            <property name="text">
             <string>注册成功，5 s后返回登录</string>
            </property>
@@ -406,7 +412,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="tip2_lb_2">
+          <widget class="QLabel" name="tip2_lb">
            <property name="text">
             <string>可点击返回按钮直接返回登录界面</string>
            </property>
@@ -445,7 +451,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="return_btn_2">
+             <widget class="QPushButton" name="return_btn">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -500,6 +506,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TimerBtn</class>
+   <extends>QPushButton</extends>
+   <header>timerbtn.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ClickedLabel</class>
+   <extends>QLabel</extends>
+   <header>clickedlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

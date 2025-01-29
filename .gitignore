@@ -33,5 +33,9 @@ logs/
 /client/cqchat/ui_mainwindow.h
 /client/cqchat/ui_registerdialog.h
 /client/cqchat/ui_resetdialog.h
+<<<<<<< HEAD
 ui_*.h
 
+=======
+ui_*.h
+>>>>>>> 242afd4 (add reset_pwd)
