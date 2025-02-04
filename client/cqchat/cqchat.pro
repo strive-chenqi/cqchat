@@ -17,28 +17,48 @@ CONFlG += sdk_no_version_check
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    chatdialog.cpp \
+    chatuserlist.cpp \
+    chatuserwid.cpp \
+    clickedbtn.cpp \
     clickedlabel.cpp \
+    customizeedit.cpp \
     global.cpp \
     httpmgr.cpp \
+    listitembase.cpp \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
     registerdialog.cpp \
     resetdialog.cpp \
-    timerbtn.cpp
+    tcpmgr.cpp \
+    timerbtn.cpp \
+    userdata.cpp \
+    usermgr.cpp
 
 HEADERS += \
+    chatdialog.h \
+    chatuserlist.h \
+    chatuserwid.h \
+    clickedbtn.h \
     clickedlabel.h \
+    customizeedit.h \
     global.h \
     httpmgr.h \
+    listitembase.h \
     logindialog.h \
     mainwindow.h \
     registerdialog.h \
     resetdialog.h \
     singleton.h \
-    timerbtn.h
+    tcpmgr.h \
+    timerbtn.h \
+    userdata.h \
+    usermgr.h
 
 FORMS += \
+    chatdialog.ui \
+    chatuserwid.ui \
     logindialog.ui \
     mainwindow.ui \
     registerdialog.ui \

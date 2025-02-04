@@ -63,9 +63,17 @@ background-color:rgb(255,255,255)
     color: rgb(42, 112, 241);
 }
 
+/*
 #side_bar{
   background-color:rgb(46,46,46);
 }
+*/
+
+/*
+#search_edit {
+    border: 2px solid #f1f1f1;
+}
+*/
 
 #add_btn[state='normal']{
     border-image: url(:/res/add_friend_normal.png);
@@ -80,14 +88,21 @@ background-color:rgb(255,255,255)
     border-image: url(:/res/add_friend_hover.png);
 }
 
+/*
 #search_wid{
      background-color:rgb(247,247,247);
 }
 
 #chat_user_list {
-    background-color: rgb(247,247,248);
+    //background-color: rgb(247,247,248);
     border: none;
 }
+*/
+
+
+
+
+
 
 #chat_user_list::item:selected {
     background-color: #d3d7d4;
@@ -112,18 +127,18 @@ background-color:rgb(255,255,255)
     font-family: "Microsoft YaHei";
 }
 
-#already_add_lb{
-    color:rgb(153,153,153);
-    font-size: 12px;
-    font-family: "Microsoft YaHei";
-}
-
 #user_name_lb{
-    color:rgb(0,0,0);
+    //color:rgb(0,0,0);
     font-size: 16px;
     font-weight: normal;
     font-family: "Microsoft YaHei";
 }
+
+ChatUserWid {
+    background-color:rgb(247,247,247);
+    border: none;
+}
+
 
 #time_wid #time_lb{
    color:rgb(140,140,140);
@@ -152,6 +167,22 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     background: none; /* 页面滚动部分背景透明 */
 }
+
+
+
+/*
+
+
+
+#already_add_lb{
+    color:rgb(153,153,153);
+    font-size: 12px;
+    font-family: "Microsoft YaHei";
+}
+
+
+
+
 
 LoadingDlg{
     background: #f2eada;
@@ -332,10 +363,6 @@ LoadingDlg{
     border-image: url(:/res/contact_list_press.png);
 }
 
-
-#search_edit {
-    border: 2px solid #f1f1f1;
-}
 
 /* 搜索框列表*/
 #search_list {
@@ -783,4 +810,4 @@ ApplyFriendItem #addBtn[state='press'] {
 #voice_chat[state='press'] {
  border-image: url(:/res/voice_chat_press.png);
 }
-
+*/

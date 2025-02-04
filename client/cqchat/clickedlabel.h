@@ -7,7 +7,7 @@ class ClickedLabel:public QLabel
 {
     Q_OBJECT
 public:
-    ClickedLabel(QWidget* parent);
+    ClickedLabel(QWidget* parent = nullptr);
     virtual void mousePressEvent(QMouseEvent *ev) override;
     virtual void enterEvent(QEnterEvent* event) override;
     virtual void leaveEvent(QEvent* event) override;
