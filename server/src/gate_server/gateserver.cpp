@@ -1,5 +1,6 @@
 #include "connectionserver.h"
 #include "redismgr.h"
+#include "configmgr.h"
 
 int main()
 {

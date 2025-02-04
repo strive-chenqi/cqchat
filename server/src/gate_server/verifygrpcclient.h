@@ -3,6 +3,7 @@
 
 #include <grpcpp/grpcpp.h>
 #include "message.grpc.pb.h"
+#include "message.pb.h"
 #include "global.h"
 #include "singleton.h"
 

@@ -2,6 +2,7 @@
 #define _LOGIC_SYSTEM_H_
 
 #include "global.h"
+#include "singleton.h"
 
 class HttpConnection;
 

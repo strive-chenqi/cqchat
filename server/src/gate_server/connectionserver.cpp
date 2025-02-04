@@ -5,7 +5,7 @@
 CServer::CServer(boost::asio::io_context& ioc, unsigned short& port) :
     acceptor_(ioc, tcp::endpoint(tcp::v4(), port)),
     ioc_(ioc) {  
-    std::cout << "CServer constructor" << std::endl;
+    std::cout << "connectionserver constructor,listen on port " << port << std::endl;
 }
 
 void CServer::start(){
@@ -39,3 +39,4 @@ void CServer::start(){
     });
 
 }
+

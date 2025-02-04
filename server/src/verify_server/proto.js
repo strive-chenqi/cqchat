@@ -7,7 +7,7 @@ const path = require('path')         //nodejs里面用require来包含一个库�
 const grpc = require('@grpc/grpc-js')
 const protoLoader = require('@grpc/proto-loader')
 
-const PROTO_PATH = path.join(__dirname, 'message.proto')  //__dirname是当前文件所在的目录
+const PROTO_PATH = path.join(__dirname , '../common/message.proto')  //__dirname是当前文件所在的目录
 //protoLoader.loadSync() 同步加载proto文件，返回一个packageDefinition对象         
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, { 
     //keepcase:true 保持字段名大小写 longs:String 长整型转换为字符串 enums:String 枚举类型转换为字符串 defaults:true 默认值 true oneofs:true 一个of字段 true
